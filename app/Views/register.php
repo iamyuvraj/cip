@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Log In</title>
+    <title>Register</title>
     <style>
       body {
         background-color: #f8f9fa; /* Light gray background */
@@ -34,7 +34,15 @@
   <body>
     <!-- Container for better alignment -->
     <div class="login-container">
-      <h2 class="text-center">Enter Your Details</h2>
+      <h2 class="text-center">Create a New Account</h2>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">First Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Last Name</label>
+      </div>
       <div class="form-floating mb-3">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Email Address</label>
@@ -43,7 +51,11 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Password</label>
       </div>
-      <button class="btn btn-primary w-100">Log In</button>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Confirm Password</label>
+      </div>
+      <button class="btn btn-primary w-100">Register</button>
     </div>
   </body>
 </html>
