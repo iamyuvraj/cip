@@ -30,6 +30,14 @@
       }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function handleRegister() {
+        // Save success message in localStorage
+        localStorage.setItem('registerSuccess', 'Registration Successful. Please Login to continue.');
+        // Redirect to login page
+        window.location.href = "<?= site_url('login') ?>";
+      }
+    </script>
   </head>
   <body>
     <!-- Container for better alignment -->
@@ -55,7 +63,7 @@
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Confirm Password</label>
       </div>
-      <button class="btn btn-primary w-100">Register</button>
+      <button class="btn btn-primary w-100" onclick="handleRegister()">Register</button>
     </div>
   </body>
 </html>

@@ -1,21 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Dashboard</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
+            background-color: #f8f9fa; /* Light gray background */
+            margin: 0;
             padding-top: 56px; /* Adjusts for fixed navbar */
         }
+        .navbar {
+            background-color: #ffffff; /* White background for the navbar */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
         .hero-section {
-            background: #f8f9fa;
-            padding: 50px 0;
+            background-color: #ffffff; /* White background for hero section */
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: .5rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
         }
         .card {
             margin-bottom: 20px;
+        }
+        .container {
+            padding: 2rem;
         }
     </style>
 </head>
@@ -29,20 +40,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-<!--         --optional code comment--            
-                <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                     -->
+                    <!-- Optional nav items can go here -->
                 </ul>
             </div>
         </div>
@@ -57,7 +55,7 @@
     </header>
 
     <!-- Dashboard -->
-    <main class="container my-5">
+    <main class="container">
         <div class="row">
             <!-- Card 1 -->
             <div class="col-md-4">
@@ -94,6 +92,6 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
