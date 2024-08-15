@@ -21,12 +21,31 @@
             margin-bottom: 2rem;
             border-radius: .5rem;
             box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            position: relative;
+            top: -90px; /* Keeps the hero section shifted up */
         }
         .card {
             margin-bottom: 20px;
         }
         .container {
             padding: 2rem;
+        }
+        .btn-actions {
+            display: flex;
+            gap: 10px;
+        }
+        /* Centering container vertically and horizontally */
+        .centered-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column; /* Ensure vertical alignment of items */
+        }
+        /* Add margin-top to the table to move it up */
+        .user-data-table {
+            margin-top: -1.5rem; /* Adjust this value to move the table up */
         }
     </style>
 </head>
@@ -46,49 +65,69 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero-section text-center">
+    <!-- Centered Content -->
+    <div class="centered-container">
         <div class="container">
-            <h1 class="display-4">Welcome to Your Dashboard</h1>
-            <p class="lead">Here you can find the latest updates and stats.</p>
-        </div>
-    </header>
+            <!-- Hero Section -->
+            <header class="hero-section">
+                <div>
+                    <h1 class="display-4">Welcome to Your Dashboard</h1>
+                    <p class="lead">Here you can find the latest updates and stats.</p>
+                </div>
+            </header>
 
-    <!-- Dashboard -->
-    <main class="container">
-        <div class="row">
-            <!-- Card 1 -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card Title 1</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go Somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card Title 2</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go Somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card Title 3</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go Somewhere</a>
-                    </div>
-                </div>
+            <!-- User Data Table -->
+            <div class="user-data-table">
+                <h2>User Data</h2>
+                <p>View, Edit and Delete the Records as per your requirements.</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>john@example.com</td>
+                            <td>
+                                <div class="btn-actions">
+                                    <a href="edit.php?id=1" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="delete.php?id=1" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mary</td>
+                            <td>Moe</td>
+                            <td>mary@example.com</td>
+                            <td>
+                                <div class="btn-actions">
+                                    <a href="edit.php?id=2" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="delete.php?id=2" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>July</td>
+                            <td>Dooley</td>
+                            <td>july@example.com</td>
+                            <td>
+                                <div class="btn-actions">
+                                    <a href="edit.php?id=3" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="delete.php?id=3" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </main>
+    </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
