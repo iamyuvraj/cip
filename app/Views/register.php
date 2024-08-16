@@ -31,7 +31,21 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      function handleRegister() {
+      function handleRegister(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        // Check if passwords match
+        if (password.value !== confirmPassword.value) {
+          alert('Passwords do not match!');
+          return;
+        }
+
         // Save success message in localStorage
         localStorage.setItem('registerSuccess', 'Registration Successful. Please Login to continue.');
         // Redirect to login page
@@ -43,27 +57,29 @@
     <!-- Container for better alignment -->
     <div class="login-container">
       <h2 class="text-center">Create a New Account</h2>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">First Name</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Last Name</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email Address</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Confirm Password</label>
-      </div>
-      <button class="btn btn-primary w-100" onclick="handleRegister()">Register</button>
+      <form onsubmit="handleRegister(event)">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="firstName" placeholder="First Name" required maxlength="10">
+          <label for="firstName">First Name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="lastName" placeholder="Last Name" required maxlength="10">
+          <label for="lastName">Last Name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+          <label for="email">Email Address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password" placeholder="Password" required>
+          <label for="password">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+          <label for="confirmPassword">Confirm Password</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+      </form>
     </div>
   </body>
 </html>
