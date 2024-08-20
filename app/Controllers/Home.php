@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\ClientModel;
 
 class Home extends BaseController
 {
@@ -22,14 +23,18 @@ class Home extends BaseController
     }
 
     public function dashboard(): string
-    {
-        // Check if the user is logged in
-        if (!session()->get('isLoggedIn')) {
-            return redirect()->to('/login');
-        }
-
-        return view('dashboard');
+{
+    // Check if the user is logged in
+    if (!session()->get('isLoggedIn')) {
+        return redirect()->to('/login');
     }
+
+    $clientModel = new \App\Models\ClientModel();
+    $data['clients'] = $clientModel->findAll();
+
+    return view('dashboard', $data);
+}
+
 
     public function registerUser()
     {
@@ -90,5 +95,104 @@ class Home extends BaseController
     {
         session()->destroy();
         return redirect()->to('/login');
+    }
+
+    public function addClient()
+    {
+        // Check if the user is logged in
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+
+        $validation = $this->validate([
+            'firstName' => 'required|min_length[2]|max_length[255]',
+            'lastName'  => 'required|min_length[2]|max_length[255]',
+            'email'     => 'required|valid_email|is_unique[clients.email]',
+        ]);
+
+        if (!$validation) {
+            return view('add_client', [
+                'validation' => $this->validator,
+            ]);
+        }
+
+        $clientModel = new ClientModel();
+
+        $data = [
+            'first_name' => $this->request->getPost('firstName'),
+            'last_name'  => $this->request->getPost('lastName'),
+            'email'      => $this->request->getPost('email'),
+        ];
+
+        if ($clientModel->insert($data)) {
+            return redirect()->to('/dashboard')->with('status', 'Client added successfully!');
+        } else {
+            return view('add_client', [
+                'validation' => $this->validator,
+                'error' => 'Failed to add client. Please try again.',
+            ]);
+        }
+    }
+
+    public function editClient($id)
+    {
+        // Check if the user is logged in
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+
+        $clientModel = new ClientModel();
+        $client = $clientModel->find($id);
+
+        if (!$client) {
+            return redirect()->to('/dashboard')->with('error', 'Client not found');
+        }
+
+        return view('edit_client', ['client' => $client]);
+    }
+
+    public function updateClient($id)
+    {
+        $clientModel = new ClientModel();
+
+        $validation = $this->validate([
+            'firstName' => 'required|min_length[2]|max_length[255]',
+            'lastName'  => 'required|min_length[2]|max_length[255]',
+            'email'     => 'required|valid_email|is_unique[clients.email,id,{id}]',
+        ]);
+
+        if (!$validation) {
+            return view('edit_client', [
+                'validation' => $this->validator,
+                'client' => $this->request->getPost(),
+            ]);
+        }
+
+        $data = [
+            'first_name' => $this->request->getPost('firstName'),
+            'last_name'  => $this->request->getPost('lastName'),
+            'email'      => $this->request->getPost('email'),
+        ];
+
+        if ($clientModel->update($id, $data)) {
+            return redirect()->to('/dashboard')->with('status', 'Client updated successfully!');
+        } else {
+            return view('edit_client', [
+                'validation' => $this->validator,
+                'client' => $this->request->getPost(),
+                'error' => 'Failed to update client. Please try again.',
+            ]);
+        }
+    }
+
+    public function deleteClient($id)
+    {
+        $clientModel = new ClientModel();
+
+        if ($clientModel->delete($id)) {
+            return redirect()->to('/dashboard')->with('status', 'Client deleted successfully!');
+        } else {
+            return redirect()->to('/dashboard')->with('error', 'Failed to delete client. Please try again.');
+        }
     }
 }

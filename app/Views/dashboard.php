@@ -82,7 +82,7 @@
             <!-- Client Details Table -->
             <div class="client-details-table">
                 <h2>Client Details</h2>
-                <p>View, Edit and Delete the Records as per your requirements.</p>
+                <p>Add, View or Modify the Records as per your requirements.</p>
                 <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add</a> <!-- Add Button -->
                 <table class="table table-hover">
                     <thead>
@@ -95,20 +95,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                            <td>
-                                <div class="btn-actions">
-                                    <a href="edit.php?id=1" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete.php?id=1" class="btn btn-danger btn-sm">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- More rows as needed -->
-                    </tbody>
+    <?php foreach ($clients as $client): ?>
+    <tr>
+        <td><?= $client['id'] ?></td>
+        <td><?= esc($client['first_name']) ?></td>
+        <td><?= esc($client['last_name']) ?></td>
+        <td><?= esc($client['email']) ?></td>
+        <td>
+            <div class="btn-actions">
+                <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</tbody>
                 </table>
             </div>
         </div>
