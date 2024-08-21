@@ -44,7 +44,7 @@
             flex-direction: column; /* Ensure vertical alignment of items */
         }
         /* Add margin-top to the table to move it up */
-        .user-data-table {
+        .client-details-table {
             margin-top: -1.5rem; /* Adjust this value to move the table up */
         }
     </style>
@@ -59,7 +59,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <!-- Optional nav items can go here -->
+                    <!-- Logout Button -->
+                    <li class="nav-item">
+                        <a class="btn btn-danger" href="<?= site_url('logout') ?>">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -76,58 +79,37 @@
                 </div>
             </header>
 
-            <!-- User Data Table -->
-            <div class="user-data-table">
-                <h2>User Data</h2>
-                <p>View, Edit and Delete the Records as per your requirements.</p>
+            <!-- Client Details Table -->
+            <div class="client-details-table">
+                <h2>Client Details</h2>
+                <p>Add, View or Modify the Records as per your requirements.</p>
+                <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add</a> <!-- Add Button -->
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Email</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                            <td>
-                                <div class="btn-actions">
-                                    <a href="edit.php?id=1" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete.php?id=1" class="btn btn-danger btn-sm">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mary</td>
-                            <td>Moe</td>
-                            <td>mary@example.com</td>
-                            <td>
-                                <div class="btn-actions">
-                                    <a href="edit.php?id=2" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete.php?id=2" class="btn btn-danger btn-sm">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>July</td>
-                            <td>Dooley</td>
-                            <td>july@example.com</td>
-                            <td>
-                                <div class="btn-actions">
-                                    <a href="edit.php?id=3" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete.php?id=3" class="btn btn-danger btn-sm">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+    <?php foreach ($clients as $client): ?>
+    <tr>
+        <td><?= $client['id'] ?></td>
+        <td><?= esc($client['first_name']) ?></td>
+        <td><?= esc($client['last_name']) ?></td>
+        <td><?= esc($client['email']) ?></td>
+        <td>
+            <div class="btn-actions">
+                <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</tbody>
                 </table>
             </div>
         </div>

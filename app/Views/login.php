@@ -7,7 +7,7 @@
     <title>Log In</title>
     <style>
       body {
-        background-color: #f8f9fa; /* Light gray background */
+        background-color: #f8f9fa;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -15,18 +15,18 @@
         margin: 0;
       }
       .login-container {
-        background-color: #ffffff; /* White background for the form */
+        background-color: #ffffff;
         padding: 2rem;
         border-radius: .5rem;
-        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        max-width: 400px; /* Limit width */
-        width: 100%; /* Full width up to max-width */
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
       }
       .login-container h2 {
-        margin-bottom: 1.5rem; /* Space between heading and form */
+        margin-bottom: 1.5rem;
       }
       .form-floating {
-        margin-bottom: 1rem; /* Space between form controls */
+        margin-bottom: 1rem;
       }
       .alert-message {
         margin-bottom: 1rem;
@@ -48,19 +48,26 @@
     </script>
   </head>
   <body>
-    <!-- Container for better alignment -->
     <div class="login-container">
       <h2 class="text-center">Enter Your Details</h2>
       <div id="alertPlaceholder"></div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email Address</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
-      </div>
-      <button class="btn btn-primary w-100">Log In</button>
+      <form action="<?= site_url('login-user') ?>" method="post"> <!-- Updated form action -->
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" required>
+          <label for="floatingInput">Email Address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
+          <label for="floatingPassword">Password</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Log In</button>
+      </form>
+
+      <?php if (isset($error)): ?>
+        <div class="alert alert-danger mt-3">
+          <?= $error ?>
+        </div>
+      <?php endif; ?>
     </div>
   </body>
 </html>
