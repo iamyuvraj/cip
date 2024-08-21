@@ -135,21 +135,26 @@ class Home extends BaseController
     }
 
     public function editClient($id)
-    {
-        // Check if the user is logged in
-        if (!session()->get('isLoggedIn')) {
-            return redirect()->to('/login');
-        }
-
-        $clientModel = new ClientModel();
-        $client = $clientModel->find($id);
-
-        if (!$client) {
-            return redirect()->to('/dashboard')->with('error', 'Client not found');
-        }
-
-        return view('edit_client', ['client' => $client]);
+{
+    // Check if the user is logged in
+    if (!session()->get('isLoggedIn')) {
+        return redirect()->to('/login');
     }
+
+    $clientModel = new ClientModel();
+    $client = $clientModel->find($id);
+
+    if (!$client) {
+        return redirect()->to('/dashboard')->with('error', 'Client not found');
+    }
+
+    // Debugging: Log or dump the client data
+    log_message('debug', 'Client data: ' . print_r($client, true));
+
+    return view('edit_client', ['client' => $client]);
+}
+
+
 
     public function updateClient($id)
     {
@@ -158,8 +163,9 @@ class Home extends BaseController
         $validation = $this->validate([
             'firstName' => 'required|min_length[2]|max_length[255]',
             'lastName'  => 'required|min_length[2]|max_length[255]',
-            'email'     => 'required|valid_email|is_unique[clients.email,id,{id}]',
+            'email'     => 'required|valid_email|is_unique[clients.email,id,' . $id . ']',
         ]);
+        
 
         if (!$validation) {
             return view('edit_client', [
