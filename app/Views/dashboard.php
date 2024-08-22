@@ -83,7 +83,7 @@
             <div class="client-details-table">
                 <h2>Client Details</h2>
                 <p>Add, View or Modify the Records as per your requirements.</p>
-                <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add</a> <!-- Add Button -->
+                <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add New Client</a> <!-- Add Button -->
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -103,8 +103,8 @@
         <td><?= esc($client['email']) ?></td>
         <td>
             <div class="btn-actions">
-                <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit</a>
-                <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete</a>
+                <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit Details</a>
+                <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete Client</a>
                 <?php if (!empty($client['file_path'])): ?>
                     <a href="<?= base_url('uploads/' . $client['file_path']) ?>" target="_blank" class="btn btn-info btn-sm">View Report</a>
                 <?php endif; ?>
