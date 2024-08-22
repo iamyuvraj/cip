@@ -95,7 +95,7 @@
                         </tr>
                     </thead>
                     <tbody>
-    <?php foreach ($clients as $client): ?>
+                    <?php foreach ($clients as $client): ?>
     <tr>
         <td><?= $client['id'] ?></td>
         <td><?= esc($client['first_name']) ?></td>
@@ -105,10 +105,14 @@
             <div class="btn-actions">
                 <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit</a>
                 <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete</a>
+                <?php if (!empty($client['file_path'])): ?>
+                    <a href="<?= base_url('uploads/' . $client['file_path']) ?>" target="_blank" class="btn btn-info btn-sm">View Report</a>
+                <?php endif; ?>
             </div>
         </td>
     </tr>
-    <?php endforeach; ?>
+<?php endforeach; ?>
+
 </tbody>
                 </table>
             </div>

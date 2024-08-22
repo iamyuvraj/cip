@@ -38,22 +38,26 @@
         <!-- <?= \Config\Services::validation()->listErrors() ?> -->
         
         <!-- Form with action pointing to the backend route -->
-        <form action="<?= site_url('add-client') ?>" method="post">
-            <?= csrf_field() ?>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="firstName" name="firstName" value="<?= old('firstName') ?>" placeholder="First Name" required maxlength="255">
-                <label for="firstName">First Name</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="lastName" name="lastName" value="<?= old('lastName') ?>" placeholder="Last Name" required maxlength="255">
-                <label for="lastName">Last Name</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Email" required>
-                <label for="email">Email</label>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Add Client</button>
-        </form>
+        <form action="<?= site_url('add-client') ?>" method="post" enctype="multipart/form-data">
+    <?= csrf_field() ?>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="firstName" name="firstName" value="<?= old('firstName') ?>" placeholder="First Name" required maxlength="255">
+        <label for="firstName">First Name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="lastName" name="lastName" value="<?= old('lastName') ?>" placeholder="Last Name" required maxlength="255">
+        <label for="lastName">Last Name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Email" required>
+        <label for="email">Email</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="file" class="form-control" id="file" name="file">
+        <label for="file">Upload Report (optional)</label>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Add Client</button>
+</form>
     </div>
 </body>
 </html>

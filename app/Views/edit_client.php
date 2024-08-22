@@ -46,22 +46,34 @@
 
         <!-- Form with action pointing to the backend route -->
         <?php if (isset($client['id'])): ?>
-    <form action="<?= site_url('update-client/' . esc($client['id'])) ?>" method="post">
-        <?= csrf_field() ?>
-        <div class="form-floating mb-3">
+          <form action="<?= site_url('update-client/' . esc($client['id'])) ?>" method="post" enctype="multipart/form-data">
+    <?= csrf_field() ?>
+    
+    <div class="form-floating mb-3">
         <input type="text" class="form-control" id="firstName" name="firstName" value="<?= esc($client['first_name']) ?>" placeholder="First Name" required maxlength="255">
-            <label for="firstName">First Name</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="lastName" name="lastName" value="<?= esc($client['last_name']) ?>" placeholder="Last Name" required maxlength="255">
-            <label for="lastName">Last Name</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="email" name="email" value="<?= esc($client['email']) ?>" placeholder="Email" required>
-            <label for="email">Email</label>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Update Client</button>
-    </form>
+        <label for="firstName">First Name</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="lastName" name="lastName" value="<?= esc($client['last_name']) ?>" placeholder="Last Name" required maxlength="255">
+        <label for="lastName">Last Name</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email" value="<?= esc($client['email']) ?>" placeholder="Email" required>
+        <label for="email">Email</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <input type="file" class="form-control" id="file" name="file">
+        <label for="file">Upload New Report (optional)</label>
+    </div>
+    
+    <input type="hidden" name="existing_file_path" value="<?= esc($client['file_path']) ?>">
+    
+    <button type="submit" class="btn btn-primary w-100">Update Client</button>
+</form>
+
 <?php else: ?>
     <p>Client data not available.</p>
 <?php endif; ?>
