@@ -55,12 +55,15 @@ class Home extends BaseController
             ]);
         }
 
-        $data = [
-            'first_name' => $this->request->getPost('firstName'),
-            'last_name'  => $this->request->getPost('lastName'),
-            'email'      => $this->request->getPost('email'),
-            'password'   => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-        ];
+        // Convert email to lowercase
+    $email = strtolower($this->request->getPost('email'));
+
+    $data = [
+        'first_name' => $this->request->getPost('firstName'),
+        'last_name'  => $this->request->getPost('lastName'),
+        'email'      => $email, // Save lowercase email
+        'password'   => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+    ];
 
         if ($userModel->insert($data)) {
             return redirect()->to('/login')->with('status', 'Registration successful! You can now log in.');
@@ -75,7 +78,7 @@ class Home extends BaseController
     public function loginUser()
     {
         $userModel = new UserModel();
-        $email = $this->request->getPost('email');
+        $email = strtolower($this->request->getPost('email')); // Convert email to lowercase
         $password = $this->request->getPost('password');
 
         $user = $userModel->where('email', $email)->first();
@@ -239,6 +242,12 @@ public function updateClient($id)
         $sheet->setCellValue('C1', 'Last Name');
         $sheet->setCellValue('D1', 'Email');
 
+        // Set custom column widths
+        $sheet->getColumnDimension('A')->setWidth(10); // Width for column A
+        $sheet->getColumnDimension('B')->setWidth(20); // Width for column B
+        $sheet->getColumnDimension('C')->setWidth(20); // Width for column C
+        $sheet->getColumnDimension('D')->setWidth(30); // Width for column D
+
         // Add client data to spreadsheet
         $row = 2;
         foreach ($clients as $client) {
@@ -253,7 +262,7 @@ public function updateClient($id)
         $writer = new Xlsx($spreadsheet);
 
         // Set filename and output
-        $filename = 'Clients Data.xlsx';
+        $filename = 'Client Details.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), 'clients_data');
         $writer->save($temp_file);
 
