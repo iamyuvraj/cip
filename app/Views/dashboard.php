@@ -43,9 +43,13 @@
             text-align: center;
             flex-direction: column; /* Ensure vertical alignment of items */
         }
-        /* Add margin-top to the table to move it up */
-        .client-details-table {
-            margin-top: -1.5rem; /* Adjust this value to move the table up */
+        .client-details-container {
+            position: relative;
+        }
+        .export-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
         }
     </style>
 </head>
@@ -80,10 +84,11 @@
             </header>
 
             <!-- Client Details Table -->
-            <div class="client-details-table">
+            <div class="client-details-container">
                 <h2>Client Details</h2>
                 <p>Add, View or Modify the Records as per your requirements.</p>
                 <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add New Client</a> <!-- Add Button -->
+
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -96,25 +101,29 @@
                     </thead>
                     <tbody>
                     <?php foreach ($clients as $client): ?>
-    <tr>
-        <td><?= $client['id'] ?></td>
-        <td><?= esc($client['first_name']) ?></td>
-        <td><?= esc($client['last_name']) ?></td>
-        <td><?= esc($client['email']) ?></td>
-        <td>
-            <div class="btn-actions">
-                <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit Details</a>
-                <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete Client</a>
-                <?php if (!empty($client['file_path'])): ?>
-                    <a href="<?= base_url('uploads/' . $client['file_path']) ?>" target="_blank" class="btn btn-info btn-sm">View Report</a>
-                <?php endif; ?>
-            </div>
-        </td>
-    </tr>
-<?php endforeach; ?>
-
-</tbody>
+                        <tr>
+                            <td><?= $client['id'] ?></td>
+                            <td><?= esc($client['first_name']) ?></td>
+                            <td><?= esc($client['last_name']) ?></td>
+                            <td><?= esc($client['email']) ?></td>
+                            <td>
+                                <div class="btn-actions">
+                                    <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit Details</a>
+                                    <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete Client</a>
+                                    <?php if (!empty($client['file_path'])): ?>
+                                        <a href="<?= base_url('uploads/' . $client['file_path']) ?>" target="_blank" class="btn btn-info btn-sm">View Report</a>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
                 </table>
+
+                <!-- Export Excel Button -->
+                <div class="export-button-container">
+                    <a href="<?= site_url('export-clients') ?>" class="btn btn-success">Export Excel</a>
+                </div>
             </div>
         </div>
     </div>

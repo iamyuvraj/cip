@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\ClientModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Home extends BaseController
 {
@@ -216,4 +218,58 @@ public function updateClient($id)
             return redirect()->to('/dashboard')->with('error', 'Failed to delete client. Please try again.');
         }
     }
+
+    public function exportClientsToExcel()
+{
+    try {
+        $clientModel = new ClientModel();
+        $clients = $clientModel->findAll();
+
+        if (empty($clients)) {
+            throw new \Exception('No clients found');
+        }
+
+        // Create a new Spreadsheet object
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set column headers
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'First Name');
+        $sheet->setCellValue('C1', 'Last Name');
+        $sheet->setCellValue('D1', 'Email');
+
+        // Add client data to spreadsheet
+        $row = 2;
+        foreach ($clients as $client) {
+            $sheet->setCellValue('A' . $row, $client['id']);
+            $sheet->setCellValue('B' . $row, $client['first_name']);
+            $sheet->setCellValue('C' . $row, $client['last_name']);
+            $sheet->setCellValue('D' . $row, $client['email']);
+            $row++;
+        }
+
+        // Create a Writer instance
+        $writer = new Xlsx($spreadsheet);
+
+        // Set filename and output
+        $filename = 'Clients Data.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), 'clients_data');
+        $writer->save($temp_file);
+
+        // Prepare the response
+        $response = $this->response->setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                                  ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+                                  ->setHeader('Cache-Control', 'max-age=0')
+                                  ->setBody(file_get_contents($temp_file));
+
+        // Clean up the temporary file
+        unlink($temp_file);
+
+        return $response;
+    } catch (\Exception $e) {
+        return $this->response->setStatusCode(500)->setBody('Error: ' . $e->getMessage());
+    }
+}
+
 }

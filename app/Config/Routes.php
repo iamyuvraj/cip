@@ -17,3 +17,4 @@ $routes->post('/add-client', 'Home::addClient');
 $routes->get('/edit-client/(:num)', 'Home::editClient/$1');
 $routes->post('/update-client/(:num)', 'Home::updateClient/$1');
 $routes->get('/delete-client/(:num)', 'Home::deleteClient/$1');
+$routes->get('export-clients', 'Home::exportClientsToExcel');
