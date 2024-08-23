@@ -123,7 +123,7 @@ class Home extends BaseController
     if ($this->request->getFile('file')) {
         $file = $this->request->getFile('file');
         $filePath = $file->getRandomName();
-        $file->move(WRITEPATH . 'uploads', $filePath);
+        $file->move(FCPATH . '/uploads', $filePath);
     }
 
     $data = [
@@ -162,8 +162,6 @@ public function editClient($id)
     return view('edit_client', ['client' => $client]);
 }
 
-
-
 public function updateClient($id)
 {
     $clientModel = new \App\Models\ClientModel();
@@ -186,7 +184,7 @@ public function updateClient($id)
     if ($this->request->getFile('file')) {
         $file = $this->request->getFile('file');
         $filePath = $file->getRandomName();
-        $file->move(WRITEPATH . 'uploads', $filePath);
+        $file->move(FCPATH . '/uploads', $filePath);
     }
 
     $data = [
@@ -207,7 +205,6 @@ public function updateClient($id)
         ]);
     }
 }
-
 
     public function deleteClient($id)
     {
