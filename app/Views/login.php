@@ -33,24 +33,18 @@
       }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Check for the success message in localStorage
-        const message = localStorage.getItem('registerSuccess');
-        if (message) {
-          // Display success message
-          const alertPlaceholder = document.getElementById('alertPlaceholder');
-          alertPlaceholder.innerHTML = `<div class="alert alert-success" role="alert">${message}</div>`;
-          // Remove the message from localStorage
-          localStorage.removeItem('registerSuccess');
-        }
-      });
-    </script>
   </head>
   <body>
     <div class="login-container">
       <h2 class="text-center">Enter Your Details</h2>
-      <div id="alertPlaceholder"></div>
+
+      <!-- Display Flash Message -->
+      <?php if (session()->getFlashdata('status')): ?>
+        <div class="alert alert-success">
+          <?= session()->getFlashdata('status') ?>
+        </div>
+      <?php endif; ?>
+
       <form action="<?= site_url('login-user') ?>" method="post"> <!-- Updated form action -->
         <div class="form-floating mb-3">
           <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com" required>
@@ -63,6 +57,7 @@
         <button type="submit" class="btn btn-primary w-100">Log In</button>
       </form>
 
+      <!-- Display Error Message -->
       <?php if (isset($error)): ?>
         <div class="alert alert-danger mt-3">
           <?= $error ?>

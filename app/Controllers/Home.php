@@ -37,25 +37,44 @@ class Home extends BaseController
     return view('dashboard', $data);
 }
 
+public function registerUser()
+{
+    $userModel = new UserModel();
 
-    public function registerUser()
-    {
-        $userModel = new UserModel();
+    // Custom validation messages
+    $validationRules = [
+        'firstName'      => [
+            'label' => 'First Name',
+            'rules' => 'required|min_length[2]|max_length[255]',
+        ],
+        'lastName'       => [
+            'label' => 'Last Name',
+            'rules' => 'required|min_length[2]|max_length[255]',
+        ],
+        'email'          => [
+            'label' => 'Email Address',
+            'rules' => 'required|valid_email|is_unique[users.email]',
+        ],
+        'password'       => [
+            'label' => 'Password',
+            'rules' => 'required|min_length[8]',
+        ],
+        'confirmPassword'=> [
+            'label' => 'Confirm Password',
+            'rules' => 'required|matches[password]',
+            'errors' => [
+                'matches' => 'Passwords do not match!', // Custom error message for password mismatch
+            ],
+        ],
+    ];
 
-        $validation = $this->validate([
-            'firstName' => 'required|min_length[2]|max_length[255]',
-            'lastName'  => 'required|min_length[2]|max_length[255]',
-            'email'     => 'required|valid_email|is_unique[users.email]',
-            'password'  => 'required|min_length[8]',
+    if (!$this->validate($validationRules)) {
+        return view('register', [
+            'validation' => $this->validator,
         ]);
+    }
 
-        if (!$validation) {
-            return view('register', [
-                'validation' => $this->validator,
-            ]);
-        }
-
-        // Convert email to lowercase
+    // Convert email to lowercase
     $email = strtolower($this->request->getPost('email'));
 
     $data = [
@@ -65,15 +84,16 @@ class Home extends BaseController
         'password'   => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
     ];
 
-        if ($userModel->insert($data)) {
-            return redirect()->to('/login')->with('status', 'Registration successful! You can now log in.');
-        } else {
-            return view('register', [
-                'validation' => $this->validator,
-                'error' => 'Failed to register. Please try again.',
-            ]);
-        }
+    // Insert user data and redirect to login with success message
+    if ($userModel->insert($data)) {
+        return redirect()->to('/login')->with('status', 'Registration Successful! Please Log In.');
+    } else {
+        return view('register', [
+            'validation' => $this->validator,
+            'error' => 'Failed to Register. Please retry.',
+        ]);
     }
+}
 
     public function loginUser()
     {

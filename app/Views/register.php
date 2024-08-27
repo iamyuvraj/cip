@@ -28,15 +28,16 @@
       .form-floating {
         margin-bottom: 1rem; /* Space between form controls */
       }
+      .alert-message {
+        margin-bottom: 1rem;
+      }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
-    <!-- Container for better alignment -->
     <div class="login-container">
       <h2 class="text-center">Create a New Account</h2>
       
-      <!-- Form with action pointing to the backend route -->
       <form action="<?= site_url('register-user') ?>" method="post">
         <div class="form-floating mb-3">
           <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" required maxlength="255">
@@ -55,7 +56,7 @@
           <label for="password">Password</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+          <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
           <label for="confirmPassword">Confirm Password</label>
         </div>
         <button type="submit" class="btn btn-primary w-100">Register</button>
