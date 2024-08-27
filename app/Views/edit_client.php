@@ -66,7 +66,7 @@
     
     <div class="form-floating mb-3">
         <input type="file" class="form-control" id="file" name="file">
-        <label for="file">Upload New Report (optional)</label>
+        <label for="file">Upload New Report</label>
     </div>
     
     <input type="hidden" name="existing_file_path" value="<?= esc($client['file_path']) ?>">

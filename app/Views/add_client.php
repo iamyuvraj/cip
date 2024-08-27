@@ -54,7 +54,7 @@
     </div>
     <div class="form-floating mb-3">
         <input type="file" class="form-control" id="file" name="file">
-        <label for="file">Upload Report (optional)</label>
+        <label for="file">Upload Report</label>
     </div>
     <button type="submit" class="btn btn-primary w-100">Add Client</button>
 </form>
