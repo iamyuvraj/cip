@@ -131,10 +131,13 @@ class Home extends BaseController
         $file->move(FCPATH . '/uploads', $filePath);
     }
 
+    // Convert email to lowercase
+    $email = strtolower($this->request->getPost('email'));
+
     $data = [
         'first_name' => $this->request->getPost('firstName'),
         'last_name'  => $this->request->getPost('lastName'),
-        'email'      => $this->request->getPost('email'),
+        'email'      => $email,
         'file_path'  => $filePath,
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s')
@@ -192,10 +195,13 @@ public function updateClient($id)
         $file->move(FCPATH . '/uploads', $filePath);
     }
 
+    // Convert email to lowercase
+    $email = strtolower($this->request->getPost('email'));
+
     $data = [
         'first_name' => $this->request->getPost('firstName'),
         'last_name'  => $this->request->getPost('lastName'),
-        'email'      => $this->request->getPost('email'),
+        'email'      => $email,
         'file_path'  => $filePath,
         'updated_at' => date('Y-m-d H:i:s')
     ];
