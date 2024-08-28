@@ -39,9 +39,9 @@
       <h2 class="text-center">Enter Your Details</h2>
 
       <!-- Display Flash Message -->
-      <?php if (session()->getFlashdata('status')): ?>
-        <div class="alert alert-success">
-          <?= session()->getFlashdata('status') ?>
+      <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger">
+          <?= session()->getFlashdata('error') ?>
         </div>
       <?php endif; ?>
 
@@ -56,13 +56,6 @@
         </div>
         <button type="submit" class="btn btn-primary w-100">Log In</button>
       </form>
-
-      <!-- Display Error Message -->
-      <?php if (isset($error)): ?>
-        <div class="alert alert-danger mt-3">
-          <?= $error ?>
-        </div>
-      <?php endif; ?>
     </div>
   </body>
 </html>

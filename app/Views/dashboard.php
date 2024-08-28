@@ -34,7 +34,6 @@
             display: flex;
             gap: 10px;
         }
-        /* Centering container vertically and horizontally */
         .centered-container {
             min-height: 100vh;
             display: flex;
@@ -51,6 +50,56 @@
             justify-content: flex-end;
             margin-top: 1rem;
         }
+
+        /* Flash message styling */
+        .flash-message {
+            position: absolute;
+            top: 80px; /* Adjust this value as needed */
+            right: 20px;
+            width: auto;
+            padding: 10px;
+            border-radius: .25rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1050; /* Ensure it’s above other content */
+            display: none; /* Hide initially */
+        }
+
+        .flash-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        /* Add a fade-out effect */
+        .fade-out {
+            transition: opacity 0.5s ease-out;
+        }
+
+        .flash-message {
+        position: absolute;
+        top: 80px; /* Adjust this value as needed */
+        right: 20px;
+        width: auto;
+        padding: 10px;
+        border-radius: .25rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1050; /* Ensure it’s above other content */
+        display: none; /* Hide initially */
+    }
+
+    .flash-message.success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .flash-message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .fade-out {
+        transition: opacity 0.5s ease-out;
+    }
+
     </style>
 </head>
 <body>
@@ -71,6 +120,20 @@
             </div>
         </div>
     </nav>
+
+    <!-- Flash Message -->
+<?php if (session()->getFlashdata('status') || session()->getFlashdata('error')): ?>
+    <?php if (session()->getFlashdata('status')): ?>
+        <div class="flash-message success fade-out">
+            <?= session()->getFlashdata('status') ?>
+        </div>
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('error')): ?>
+        <div class="flash-message error fade-out">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
 
     <!-- Centered Content -->
     <div class="centered-container">
@@ -131,5 +194,21 @@
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Flash message auto-hide script -->
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+        var flashMessage = document.querySelector('.flash-message');
+        if (flashMessage) {
+            flashMessage.style.display = 'block'; // Show the flash message
+            setTimeout(function() {
+                flashMessage.style.opacity = '0'; // Fade out the message
+                setTimeout(function() {
+                    flashMessage.style.display = 'none'; // Hide it after fade-out
+                }, 500); // Match this with the fade-out duration
+            }, 5000); // Show for 5 seconds
+        }
+    });
+    </script>
 </body>
 </html>

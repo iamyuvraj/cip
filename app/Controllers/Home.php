@@ -95,26 +95,27 @@ public function registerUser()
     }
 }
 
-    public function loginUser()
-    {
-        $userModel = new UserModel();
-        $email = strtolower($this->request->getPost('email')); // Convert email to lowercase
-        $password = $this->request->getPost('password');
+public function loginUser()
+{
+    $userModel = new UserModel();
+    $email = strtolower($this->request->getPost('email')); // Convert email to lowercase
+    $password = $this->request->getPost('password');
 
-        $user = $userModel->where('email', $email)->first();
+    $user = $userModel->where('email', $email)->first();
 
-        if ($user && password_verify($password, $user['password'])) {
-            session()->set([
-                'userId' => $user['id'],
-                'firstName' => $user['first_name'],
-                'lastName' => $user['last_name'],
-                'isLoggedIn' => true,
-            ]);
-            return redirect()->to('/dashboard');
-        } else {
-            return redirect()->back()->with('error', 'Invalid Email or Password');
-        }
+    if ($user && password_verify($password, $user['password'])) {
+        session()->set([
+            'userId' => $user['id'],
+            'firstName' => $user['first_name'],
+            'lastName' => $user['last_name'],
+            'isLoggedIn' => true,
+        ]);
+        return redirect()->to('/dashboard');
+    } else {
+        return redirect()->back()->with('error', 'Email or Password was incorrect!');
     }
+}
+
 
     public function logout()
     {
@@ -237,16 +238,16 @@ public function updateClient($id)
     }
 }
 
-    public function deleteClient($id)
-    {
-        $clientModel = new ClientModel();
+public function deleteClient($id)
+{
+    $clientModel = new \App\Models\ClientModel();
 
-        if ($clientModel->delete($id)) {
-            return redirect()->to('/dashboard')->with('status', 'Client deleted successfully!');
-        } else {
-            return redirect()->to('/dashboard')->with('error', 'Failed to delete client. Please try again.');
-        }
+    if ($clientModel->delete($id)) {
+        return redirect()->to('/dashboard')->with('status', 'Client deleted successfully!');
+    } else {
+        return redirect()->to('/dashboard')->with('error', 'Failed to delete client. Please try again.');
     }
+}
 
     public function exportClientsToExcel()
 {
