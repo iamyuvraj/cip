@@ -6,6 +6,8 @@ use App\Models\UserModel;
 use App\Models\ClientModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Exception;
 
 class Home extends BaseController
 {
@@ -238,14 +240,49 @@ public function updateClient($id)
     }
 }
 
+public function import()
+{
+    $file = $this->request->getFile('excel_file');
+
+    if (!$file || !$file->isValid()) {
+        return redirect()->back()->with('error', 'Please select a valid file.');
+    }
+
+    $clientModel = new \App\Models\ClientModel(); // Create an instance of the ClientModel
+
+    try {
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getTempName());
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        foreach ($sheetData as $key => $row) {
+            if ($key === 0) continue; // Skip header row
+            
+            // Check for empty values
+            if (empty($row[1]) || empty($row[2]) || empty($row[3])) continue; // Skip rows with empty required fields
+            
+            $data = [
+                'first_name' => $row[1],
+                'last_name' => $row[2],
+                'email' => $row[3],
+            ];
+
+            $clientModel->insert($data); // Use the model to insert the data
+        }
+
+        return redirect()->to('/dashboard')->with('status', 'Clients Imported Successfully.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+    }
+}
+
 public function deleteClient($id)
 {
     $clientModel = new \App\Models\ClientModel();
 
     if ($clientModel->delete($id)) {
-        return redirect()->to('/dashboard')->with('status', 'Client deleted successfully!');
+        return redirect()->to('/dashboard')->with('status', 'Client Deleted Successfully!');
     } else {
-        return redirect()->to('/dashboard')->with('error', 'Failed to delete client. Please try again.');
+        return redirect()->to('/dashboard')->with('error', 'Failed to Delete Client.');
     }
 }
 
