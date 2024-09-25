@@ -118,7 +118,6 @@ public function loginUser()
     }
 }
 
-
     public function logout()
     {
         session()->destroy();
@@ -175,7 +174,6 @@ public function loginUser()
         ]);
     }
 }
-
 
 public function editClient($id)
 {
