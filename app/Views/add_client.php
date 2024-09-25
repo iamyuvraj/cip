@@ -50,7 +50,7 @@
     </div>
     <div class="form-floating mb-3">
         <input type="email" class="form-control" id="email" name="email" value="<?= old('email') ?>" placeholder="Email" required>
-        <label for="email">Email</label>
+        <label for="email">Email Address</label>
     </div>
     <div class="form-floating mb-3">
         <input type="file" class="form-control" id="file" name="file">

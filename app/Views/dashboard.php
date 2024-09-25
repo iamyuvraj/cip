@@ -54,7 +54,7 @@
         /* Flash message styling */
         .flash-message {
             position: absolute;
-            top: 80px; /* Adjust this value as needed */
+            top: 80px; /* Adjust */
             right: 20px;
             width: auto;
             padding: 10px;
@@ -76,7 +76,7 @@
 
         .flash-message {
         position: absolute;
-        top: 80px; /* Adjust this value as needed */
+        top: 80px; /* Adjust */
         right: 20px;
         width: auto;
         padding: 10px;
@@ -146,12 +146,26 @@
                 </div>
             </header>
 
+            <!-- Search Form -->
+<div class="search-container mb-4">
+    <form action="<?= site_url('dashboard/search') ?>" method="get" class="d-flex">
+        <input type="text" name="query" class="form-control me-2" placeholder="Search..." />
+        <select name="filter" class="form-select me-2">
+            <option value="">Select Filter</option>
+            <option value="id">ID</option>
+            <option value="first_name">First Name</option>
+            <option value="last_name">Last Name</option>
+            <option value="email">Email Address</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
             <!-- Client Details Table -->
             <div class="client-details-container">
                 <h2>Client Details</h2>
                 <p>Add, View or Modify the Records as per your requirements.</p>
-                <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add New Client</a> <!-- Add Button -->
-                <!-- Import Clients Button -->
+                <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add New Client</a>                <!-- Import Clients Button -->
 <a href="#" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#importModal">Import Clients</a>
 <!-- Modal for File Upload -->
 <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
@@ -183,7 +197,7 @@
                             <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>Email</th>
+                            <th>Email Address</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

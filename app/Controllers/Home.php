@@ -343,4 +343,34 @@ public function deleteClient($id)
     }
 }
 
+public function search()
+{
+    $model = new ClientModel(); // Update with your actual model
+    $query = $this->request->getGet('query');
+    $filter = $this->request->getGet('filter');
+
+    // Search and filter logic
+    if ($filter) 
+    {
+        if (is_numeric($query)) 
+        {
+            $data['clients'] = $model->where($filter, (int)$query)->findAll();
+        } 
+        else 
+        {
+            $data['clients'] = $model->like($filter, $query)->findAll();
+        }
+    } 
+    else 
+    {
+        $data['clients'] = $model->like('first_name', $query)
+                                 ->orLike('last_name', $query)
+                                 ->orLike('email', $query)
+                                 ->orWhere('id', (int)$query)
+                                 ->findAll();
+    }
+
+    return view('dashboard', $data);
+}
+
 }
