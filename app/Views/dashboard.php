@@ -115,6 +115,7 @@
                     <!-- Logout Button -->
                     <li class="nav-item">
                         <a class="btn btn-danger" href="<?= site_url('logout') ?>">Logout</a>
+                        <a href="<?= site_url('generate-pdf') ?>" class="btn btn-primary" target="_blank">Save Page as PDF</a>
                     </li>
                 </ul>
             </div>

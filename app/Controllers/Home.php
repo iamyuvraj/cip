@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Exception;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Home extends BaseController
 {
@@ -372,5 +374,28 @@ public function search()
 
     return view('dashboard', $data);
 }
+
+public function saveAsPdf()
+    {
+        // Load your data, assuming you have a model for fetching clients
+        $model = new ClientModel();
+        $data['clients'] = $model->getAllClients(); // Replace with your method
+
+        // Load the view to convert to PDF
+        $html = view('dashboard', $data); // Ensure this view path is correct
+
+        // Initialize Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($options);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        return $dompdf->stream("Dashboard.pdf", ["Attachment" => false]); // Change to true for download
+    }
 
 }

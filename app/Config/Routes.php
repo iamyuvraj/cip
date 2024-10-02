@@ -20,3 +20,4 @@ $routes->get('/delete-client/(:num)', 'Home::deleteClient/$1');
 $routes->get('export-clients', 'Home::exportClientsToExcel');
 $routes->get('dashboard/search', 'Home::search');
 $routes->post('home/import', 'Home::import');
+$routes->get('/generate-pdf', 'Home::saveAsPdf');

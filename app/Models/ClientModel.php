@@ -45,4 +45,9 @@ class ClientModel extends Model
 
         return $this->update($id, $data);
     }
+
+    public function getAllClients()
+    {
+        return $this->findAll(); // Fetch all records from the clients table
+    }
 }
