@@ -4,7 +4,7 @@
 This is a basic CI4 Project showcasing the CRUD Operations. 
 File Upload and Export to Excel functionality is also implemented in the Project.
 
-PostgreS and PG Admin is used for the Database.
+PostgreS is used for the Database.
 
 # Default Readme File Content for CI4:
 # CodeIgniter 4 Application Starter
