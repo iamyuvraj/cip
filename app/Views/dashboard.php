@@ -123,7 +123,7 @@
     </nav>
 
     <!-- Flash Message -->
-<?php if (session()->getFlashdata('status') || session()->getFlashdata('error')): ?>
+    <?php if (session()->getFlashdata('status') || session()->getFlashdata('error')): ?>
     <?php if (session()->getFlashdata('status')): ?>
         <div class="flash-message success fade-out">
             <?= session()->getFlashdata('status') ?>
@@ -134,7 +134,7 @@
             <?= session()->getFlashdata('error') ?>
         </div>
     <?php endif; ?>
-<?php endif; ?>
+    <?php endif; ?>
 
     <!-- Centered Content -->
     <div class="centered-container">
@@ -148,17 +148,17 @@
             </header>
 
             <!-- Search Form -->
-<div class="search-container mb-4">
-    <form action="<?= site_url('dashboard/search') ?>" method="get" class="d-flex">
-        <input type="text" name="query" class="form-control me-2" placeholder="Search..." />
-        <select name="filter" class="form-select me-2">
+            <div class="search-container mb-4">
+            <form action="<?= site_url('dashboard/search') ?>" method="get" class="d-flex">
+            <input type="text" name="query" class="form-control me-2" placeholder="Search..." />
+            <select name="filter" class="form-select me-2">
             <option value="">Select Filter</option>
             <option value="id">ID</option>
             <option value="first_name">First Name</option>
             <option value="last_name">Last Name</option>
             <option value="email">Email Address</option>
-        </select>
-        <button type="submit" class="btn btn-primary">Search</button>
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
     </form>
 </div>
 
@@ -167,16 +167,17 @@
                 <h2>Client Details</h2>
                 <p>Add, View or Modify the Records as per your requirements.</p>
                 <a href="<?= site_url('add-client') ?>" class="btn btn-success mb-3">Add New Client</a>                <!-- Import Clients Button -->
-<a href="#" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#importModal">Import Clients</a>
-<!-- Modal for File Upload -->
-<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+                <a href="#" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#importModal">Import Clients</a>
+
+                <!-- Modal for File Upload -->
+                <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
                 <h5 class="modal-title" id="importModalLabel">Import Clients</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+                </div>
+                <div class="modal-body">
                 <form action="<?= site_url('home/import') ?>" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="excel_file" class="form-label">Select Excel File</label>
