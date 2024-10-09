@@ -105,18 +105,21 @@ public function loginUser()
     $email = strtolower($this->request->getPost('email')); // Convert email to lowercase
     $password = $this->request->getPost('password');
 
+    //fetch user from the database
     $user = $userModel->where('email', $email)->first();
 
     if ($user && password_verify($password, $user['password'])) {
+        //store user details in the session
         session()->set([
             'userId' => $user['id'],
             'firstName' => $user['first_name'],
             'lastName' => $user['last_name'],
+            'role' => $user['role'],
             'isLoggedIn' => true,
         ]);
         return redirect()->to('/dashboard');
     } else {
-        return redirect()->back()->with('error', 'Email or Password was incorrect!');
+        return redirect()->back()->with('error', 'Email or Password was Incorrect!');
     }
 }
 
@@ -279,6 +282,12 @@ public function deleteClient($id)
 {
     $clientModel = new \App\Models\ClientModel();
 
+    // Check if the user is an Admin
+    if (session()->get('role') != 'Admin') {
+        return redirect()->to('/dashboard')->with('error', 'Not authorized to delete clients.');
+    }
+
+    //deletion
     if ($clientModel->delete($id)) {
         return redirect()->to('/dashboard')->with('status', 'Client Deleted Successfully!');
     } else {

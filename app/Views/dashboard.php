@@ -112,6 +112,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
+                    <!-- Chip showing the role -->
+                <li class="nav-item">
+                    <?php if (session()->get('role') == 'Admin'): ?>
+                        <span class="chip chip-admin">Welcome Admin</span>
+                    <?php else: ?>
+                        <span class="chip chip-user">Welcome User</span>
+                    <?php endif; ?>
+                </li>
+
                     <!-- Logout Button -->
                     <li class="nav-item">
                         <a class="btn btn-danger" href="<?= site_url('logout') ?>">Logout</a>
@@ -121,6 +130,29 @@
             </div>
         </div>
     </nav>
+
+    <style>
+    .chip {
+        display: inline-block;
+        padding: 0 10px;
+        height: 38px;
+        font-size: 16px;
+        line-height: 35px;
+        border-radius: 20px;
+        background-color: #e0e0e0;
+        color: #000;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    .chip-admin {
+        background-color: #ff5722;
+        color: #fff;
+    }
+    .chip-user {
+        background-color: #4caf50;
+        color: #fff;
+    }
+</style>
 
     <!-- Flash Message -->
     <?php if (session()->getFlashdata('status') || session()->getFlashdata('error')): ?>
@@ -213,7 +245,15 @@
                             <td>
                                 <div class="btn-actions">
                                     <a href="<?= site_url('edit-client/' . $client['id']) ?>" class="btn btn-primary btn-sm">Edit Details</a>
-                                    <a href="<?= site_url('delete-client/' . $client['id']) ?>" class="btn btn-danger btn-sm">Delete Client</a>
+                                    
+                                    <!-- Conditional rendering for delete button -->
+                        <?php if (session()->get('role') == 'Admin'): ?>
+                            <form action="<?= site_url('delete-client/' . $client['id']) ?>" method="post" style="display:inline;">
+                                <?= csrf_field(); ?> <!-- CSRF protection -->
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this client?');">Delete Client</button>
+                            </form>
+                        <?php endif; ?>
+                                    
                                     <?php if (!empty($client['file_path'])): ?>
                                         <a href="<?= base_url('uploads/' . $client['file_path']) ?>" target="_blank" class="btn btn-info btn-sm">View Report</a>
                                     <?php endif; ?>
