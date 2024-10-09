@@ -388,6 +388,7 @@ public function saveAsPdf()
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('defaultFont', 'Arial');
+        $options->set('isRemoteEnabled', true);
         $dompdf = new Dompdf($options);
 
         $dompdf->loadHtml($html);
